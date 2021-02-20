@@ -3,13 +3,41 @@
 #include <cstdio>
 #include <ctime>
 
-// Logging macros
+#ifdef WIN32
+	#include <Windows.h>
+#endif // WIN32
 
-#define LogInfo(caller, message, ...) logTime(); printf(caller " Info: \033[1;32m" message "\n\033[0m", __VA_ARGS__);
+// Logging initialization code
+void initLog()
+{
+#ifdef WIN32
 
-#define LogWarn(caller, message, ...) logTime(); printf(caller " Warning: \033[1;33m" message "\n\033[0m", __VA_ARGS__);
+    HANDLE stdo = GetStdHandle(STD_OUTPUT_HANDLE);
+    DWORD dwMode = 0;
+    GetConsoleMode(stdo, &dwMode);
+    dwMode |= ENABLE_VIRTUAL_TERMINAL_PROCESSING;
+    SetConsoleMode(stdo, dwMode);
 
-#define LogError(caller, message, ...) logTime(); printf(caller " Error: \033[1;31m" message "\n\033[0m", __VA_ARGS__);
+    HANDLE stde = GetStdHandle(STD_ERROR_HANDLE);
+    dwMode = 0;
+    GetConsoleMode(stde, &dwMode);
+    dwMode |= ENABLE_VIRTUAL_TERMINAL_PROCESSING;
+    SetConsoleMode(stde, dwMode);
+
+#endif // WIN32
+
+    logTime();
+    printf("\033[1;34m lo28\033[0m Info: \033[1;32mLog initialized\n");
+
+}
+
+// Logging internal logging macros
+
+#define LogInfo(caller, message, ...) logTime(); fprintf(stdout, "\033[1;34m" caller "\033[0m Info: \033[1;32m" message "\033[0m\n", __VA_ARGS__);
+
+#define LogWarn(caller, message, ...) logTime(); fprintf(stdout, "\033[1;34m" caller "\033[0m Warning: \033[1;33m" message "\033[0m\n", __VA_ARGS__);
+
+#define LogError(caller, message, ...) logTime(); fprintf(stderr, "\033[1;34m" caller "\033[0m Error: \033[1;31m" message "\033[0m\n", __VA_ARGS__);
 
 
 // Log functions

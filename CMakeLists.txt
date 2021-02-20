@@ -30,13 +30,17 @@ endif()
 # list of source files of library
 set(LO28_SRC 
     src/main.cpp
-    src/debug/log.cpp
-)
+
+    src/debug/log.h
+    src/debug/assertions.h
+    src/debug/logUtils.h
+    src/debug/glUtils.h
+    src/debug/glUtils.cpp
+ )
 
 # list of include files for lo28 library
 set(LO28_H
     include/lo28/lo28.h
-    include/lo28/debug/log.h
  )
 
 # add the lo28 library target
@@ -58,6 +62,18 @@ target_link_libraries(lo28 glfw glad)
 
 # add library include directories
 target_include_directories(lo28 PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
+
+# add debug mode defines
+target_compile_definitions(lo28 PUBLIC "$<$<CONFIG:DEBUG>:DEBUG>")
+
+if (WIN32)
+    target_compile_definitions(lo28 PUBLIC "WIN32")
+    if (MSVC)
+        target_compile_definitions(lo28 PUBLIC "_CRT_SECURE_NO_WARNINGS")
+    endif()
+elseif(UNIX)
+    target_compile_definitions(lo28 PUBLIC "UNIX")
+endif()
 
 # structure files inside IDE projects
 source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${LO28_SRC} ${LO28_H})
