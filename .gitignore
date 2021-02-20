@@ -1,0 +1,22 @@
+# .gitignore file for lo28 graphic library for C++ project
+#   
+
+# general build outputs
+.build/**
+bin/**
+lib/**
+
+*.obj
+*.tlog
+*.log
+
+*.exe
+*.app
+*.out
+*.a
+*.lib
+*.dll
+
+# Visual Studio specific excludes
+.vs/**
+out/**
