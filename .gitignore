@@ -9,6 +9,7 @@ lib/**
 *.obj
 *.tlog
 *.log
+*.pdb
 
 *.exe
 *.app

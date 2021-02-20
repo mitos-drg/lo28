@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.1)
 
 # add cmake project
-project(lo28 CXX)
+project(lo28 CXX C)
 
 # Global dependencies and project settings
 
@@ -35,7 +35,7 @@ set(LO28_SRC
 # list of include files for lo28 library
 set(LO28_H
     include/lo28.h
-)
+ )
 
 # add the lo28 library target
 add_library(lo28 STATIC ${LO28_SRC} ${LO28_H})
@@ -44,6 +44,7 @@ add_library(lo28 STATIC ${LO28_SRC} ${LO28_H})
 set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
+set(GLFW_INSTALL OFF CACHE BOOL "" FORCE)
 
 add_subdirectory(deps/glfw)
 
@@ -65,6 +66,9 @@ source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${LO28_SRC} ${LO28_H})
 
 # add glad target to dependencies folder
 set_target_properties(glad PROPERTIES FOLDER dependencies)
+
+# add glfw target to dependencies folder
+set_target_properties(glfw PROPERTIES FOLDER dependencies)
 
 
 ### EXAMPLES SETUP ###

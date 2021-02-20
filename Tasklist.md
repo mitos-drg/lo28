@@ -3,8 +3,8 @@
 ---
 
 ### Tasklist: ###
-- [ ] make project git-repo
-- [ ] modify project CMakeLists.txt to include conditional features for msvc and compiling examples
+- [x] make project git-repo
+- [x] modify project CMakeLists.txt to include conditional features for msvc and compiling examples
 - [ ] write library logging system
 - [ ] create reference example
 - [ ] write library base
