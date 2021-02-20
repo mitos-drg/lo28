@@ -21,3 +21,4 @@ lib/**
 # Visual Studio specific excludes
 .vs/**
 out/**
+CMakeSettings.json

@@ -30,11 +30,13 @@ endif()
 # list of source files of library
 set(LO28_SRC 
     src/main.cpp
+    src/debug/log.cpp
 )
 
 # list of include files for lo28 library
 set(LO28_H
-    include/lo28.h
+    include/lo28/lo28.h
+    include/lo28/debug/log.h
  )
 
 # add the lo28 library target
