@@ -27,17 +27,17 @@ void initLog()
 #endif // WIN32
 
     logTime();
-    printf("\033[1;34m lo28\033[0m Info: \033[1;32mLog initialized\n");
+    printf("\033[1;34m lo28\033[0m Info: \033[1;32mLog initialized\n\033[0m");
 
 }
 
 // Logging internal logging macros
 
-#define LogInfo(caller, message, ...) logTime(); fprintf(stdout, "\033[1;34m" caller "\033[0m Info: \033[1;32m" message "\033[0m\n", __VA_ARGS__);
+#define LogInfo(caller, message, ...) logTime(); printf("\033[1;34m" caller "\033[0m Info: \033[1;32m" message "\033[0m\n", __VA_ARGS__);
 
-#define LogWarn(caller, message, ...) logTime(); fprintf(stdout, "\033[1;34m" caller "\033[0m Warning: \033[1;33m" message "\033[0m\n", __VA_ARGS__);
+#define LogWarn(caller, message, ...) logTime(); printf("\033[1;34m" caller "\033[0m Warning: \033[1;33m" message "\033[0m\n", __VA_ARGS__);
 
-#define LogError(caller, message, ...) logTime(); fprintf(stderr, "\033[1;34m" caller "\033[0m Error: \033[1;31m" message "\033[0m\n", __VA_ARGS__);
+#define LogError(caller, message, ...) logTime(); printf("\033[1;34m" caller "\033[0m Error: \033[1;31m" message "\033[0m\n", __VA_ARGS__);
 
 
 // Log functions
