@@ -38,6 +38,8 @@ set(LO28_SRC
     src/debug/glUtils.cpp
 
     src/core/application.cpp
+
+    src/graphics/GraphicsContext.cpp
  )
 
 # list of include files for lo28 library
@@ -46,7 +48,8 @@ set(LO28_H
 
     include/lo28/application.h
     include/lo28/data_types.h
-  )
+    include/lo28/GraphicsContext.h
+)
 
 # add the lo28 library target
 add_library(lo28 STATIC ${LO28_SRC} ${LO28_H})

@@ -1,8 +1,11 @@
+#pragma once
 //
 // Copyright (C) by Mikolaj Mijakowski (Mitos) 2021, for further legal details see LICENSE.md
 //
 
+#include <string>
 
+#include <lo28/GraphicsContext.h>
 
 class Application
 {
@@ -17,7 +20,7 @@ public:
 	void setResizable(bool resizable);
 
 protected:
-	virtual void paint(GraphicsContext g);
+	virtual void paint(GraphicsContext& g);
 
 private:
 
