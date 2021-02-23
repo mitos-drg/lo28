@@ -11,24 +11,10 @@
 class Template : public Application
 {
 public:
-	Template()
-	{
-
-	}
-
-	void paint(GraphicsContext g)
-	{
-
-	}
+	
 };
 
 Application* lo28main()
 {
-	Template* f = new Template();
-	f.setSize(600, 600);
-	f.setTitle("lo28 - Template Application");
-	f.setResizable(false);
 
-	f.show();
-	return f;
 }

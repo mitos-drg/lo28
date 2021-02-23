@@ -1,4 +1,9 @@
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 3.16)
+
+# Global examples settings
+
+# Force every project to use /MT<d> flag on MSVC compiler
+set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 
 # Create <target> target example
 # add_executable(<target> <target>.cpp)
