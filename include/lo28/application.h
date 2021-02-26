@@ -14,3 +14,10 @@ public:
 	Application();
 	virtual ~Application();
 };
+
+/*
+	Global functions for application-related stuff
+*/
+
+extern Application* lo28main();
+extern Application* GetApp();

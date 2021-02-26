@@ -10,5 +10,6 @@
 - [ ] write library base
 - [ ] add library additional features (render points, lines)
 - [ ] add cursor and "line-strips"
-- [ ] add "animation thread"
 - [ ] add text rendering
+- [ ] add "animation thread"
+- [ ] add interface items and events

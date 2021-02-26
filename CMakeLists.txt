@@ -43,7 +43,8 @@ set(LO28_SRC
     src/core/Application.cpp
 
     src/graphics/Graphics.cpp
- )
+    src/graphics/GraphicsTypes.h
+  )
 
 # list of include files for lo28 library
 set(LO28_H
