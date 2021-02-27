@@ -35,6 +35,7 @@ set(LO28_SRC
     src/main.cpp
 
     src/debug/log.h
+    src/debug/log.cpp
     src/debug/assertions.h
     src/debug/logUtils.h
     src/debug/glUtils.h
@@ -42,9 +43,13 @@ set(LO28_SRC
 
     src/core/Application.cpp
 
-    src/graphics/Graphics.cpp
-    src/graphics/GraphicsTypes.h
-  )
+    #src/graphics/Graphics.cpp
+    #src/graphics/GraphicsTypes.h
+    #src/graphics/Renderer.h
+    #src/graphics/Renderer.cpp
+    #src/graphics/Shaders.h
+    #src/graphics/Shaders.cpp
+)
 
 # list of include files for lo28 library
 set(LO28_H

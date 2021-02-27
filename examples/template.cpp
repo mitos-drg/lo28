@@ -11,10 +11,14 @@
 class Template : public Application
 {
 public:
-	
+	Template()
+	{
+
+	}
 };
 
 Application* lo28main()
 {
-
+	Template* f = new Template();
+	return f;
 }

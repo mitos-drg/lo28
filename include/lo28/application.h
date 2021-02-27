@@ -13,6 +13,9 @@ class Application
 public:
 	Application();
 	virtual ~Application();
+
+	// Blocking function containing programs main loop
+	void Run();
 };
 
 /*
