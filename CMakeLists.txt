@@ -49,7 +49,9 @@ set(LO28_SRC
     src/graphics/Renderer.cpp
     src/graphics/Shaders.h
     src/graphics/Shaders.cpp
- "src/core/WindowGraphics.cpp")
+    src/core/WindowGraphics.h
+    src/core/WindowGraphics.cpp
+ )
 
 # list of include files for lo28 library
 set(LO28_H

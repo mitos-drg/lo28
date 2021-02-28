@@ -16,3 +16,13 @@ Graphics::~Graphics()
 {
 
 }
+
+void Graphics::setColor(Color fg)
+{
+	foreground = fg;
+}
+
+void Graphics::setBackground(Color bg)
+{
+	background = bg;
+}

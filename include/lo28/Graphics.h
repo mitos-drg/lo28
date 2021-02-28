@@ -18,8 +18,11 @@ public:
 	Graphics();
 	~Graphics();
 
+	void setColor(Color fg);
+	void setBackground(Color bg);
+
 protected:
 	// Drawing related stuff
-	Color backgroundColor;
-	Color penColor;
+	Color background;
+	Color foreground;
 };

@@ -17,5 +17,6 @@
 
 #define ASSERT(x)
 #define CHECK(condition, description)
+#define FATAL_CHECK(condition, errorMsg, successMsg) condition
 
 #endif // DEBUG

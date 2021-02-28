@@ -1,5 +1,7 @@
 #pragma once
 
+#include <string>
+
 #define GLFW_INCLUDE_NONE
 #include <GLFW/glfw3.h>
 
@@ -9,7 +11,7 @@
 class WindowGraphics : public Graphics
 {
 public:
-	WindowGraphics();
+	WindowGraphics(uint32_t width, uint32_t height, const std::string& title, bool resizable=false);
 	~WindowGraphics();
 
 private:
