@@ -1,8 +1,9 @@
 //
 // Copyright (C) by Mikolaj Mijakowski (Mitos) 2021, for further legal details see LICENSE.md
 //
-
 #pragma once
+
+#include <lo28/Graphics.h>
 
 /*
 	Base class to derive from for any runnable project using lo28 library.
@@ -16,6 +17,9 @@ public:
 
 	// Blocking function containing programs main loop
 	void Run();
+
+public:
+	Graphics* graphics;
 };
 
 /*

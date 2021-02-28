@@ -1,11 +1,10 @@
 #include "Shaders.h"
 
 
-const char* geometryVertexShaderSrc = 
-	R"vs(
+const char* geometryVertexShaderSrc = R"vsSrc(
 # version 330 core
-layout(location = 0) in vec2 position;
-layout(location = 1) in vec3 color;
+layout(location = 0) in vec2 vPosition;
+layout(location = 1) in vec3 vColor;
 
 out vec3 fragCol;
 
@@ -13,23 +12,22 @@ uniform mat4 u_MVP;
 
 void main()
 {
-	fragCol = color;
-	gl_Position = u_MVP * vec4(position, 0.0, 1.0);
-};
-	)vs";
+	fragCol = vColor;
+	gl_Position = u_MVP * vec4(vPosition, 0.0, 1.0);
+}
+	)vsSrc";
 
-const char* geometryFragmentShaderSrc =
-	R"fs(
+const char* geometryFragmentShaderSrc =R"fsSrc(
 # version 330 core
 
-out vec4 color;
+out vec4 oColor;
 in vec3 fragCol;
 
 void main()
 {
-	color = vec4(fragCol, 1.0);
-};
-	)fs";
+	oColor = vec4(fragCol, 1.0);
+}
+	)fsSrc";
 
 
 

@@ -17,8 +17,8 @@ private:
 	
 
 	// Shaders stuff
-	static uint32_t basicShader;
+	static uint32_t geometryShader;
 	static uint32_t textShader;
 
-	//static void CompileShaders();
+	static void CompileShaders();
 };

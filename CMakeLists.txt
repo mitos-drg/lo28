@@ -43,13 +43,13 @@ set(LO28_SRC
 
     src/core/Application.cpp
 
-    #src/graphics/Graphics.cpp
-    #src/graphics/GraphicsTypes.h
-    #src/graphics/Renderer.h
-    #src/graphics/Renderer.cpp
-    #src/graphics/Shaders.h
-    #src/graphics/Shaders.cpp
-)
+    src/graphics/Graphics.cpp
+    src/graphics/GraphicsTypes.h
+    src/graphics/Renderer.h
+    src/graphics/Renderer.cpp
+    src/graphics/Shaders.h
+    src/graphics/Shaders.cpp
+ "src/core/WindowGraphics.cpp")
 
 # list of include files for lo28 library
 set(LO28_H

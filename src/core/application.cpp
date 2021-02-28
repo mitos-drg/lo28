@@ -3,15 +3,18 @@
 #include <iostream>
 
 #include <debug/logUtils.h>
+#include <core/WindowGraphics.h>
 
 
 Application::Application()
 {
+	graphics = new WindowGraphics();
 	success("Application created!");
 }
 
 Application::~Application()
 {
+	delete graphics;
 	info("Application destroyed")
 }
 
