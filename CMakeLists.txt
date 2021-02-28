@@ -41,31 +41,19 @@ set(LO28_SRC
     src/debug/glUtils.h
     src/debug/glUtils.cpp
 
-    src/core/Application.cpp
-
-    src/graphics/Graphics.cpp
-    src/graphics/GraphicsTypes.h
-    src/graphics/Renderer.h
-    src/graphics/Renderer.cpp
     src/graphics/Shaders.h
-    src/graphics/Shaders.cpp
-    src/core/WindowGraphics.h
-    src/core/WindowGraphics.cpp
+    src/graphics/Shaders.h
  )
 
 # list of include files for lo28 library
 set(LO28_H
     include/lo28/lo28.h
 
-    include/lo28/core.h
-
-    include/lo28/Application.h
     include/lo28/DataTypes.h
-    include/lo28/Graphics.h
 )
 
 # add the lo28 library target
-add_library(lo28 STATIC ${LO28_SRC} ${LO28_H})
+add_library(lo28 STATIC ${LO28_SRC})
 
 # add glfw library
 set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
@@ -85,7 +73,7 @@ target_link_libraries(lo28 glfw glad)
 target_include_directories(lo28 PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
 
 # add debug mode defines
-target_compile_definitions(lo28 PUBLIC "$<$<CONFIG:DEBUG>:DEBUG>")
+target_compile_definitions(lo28 PUBLIC "$<$<CONFIG:DEBUG>:DEBUG>" PUBLIC "GLFW_INCLUDE_NONE")
 
 if (WIN32)
     target_compile_definitions(lo28 PUBLIC "WIN32")

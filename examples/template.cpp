@@ -15,21 +15,11 @@ public:
 	{
 
 	}
-
-	virtual void paint(Graphics& g) override
-	{
-		
-	}
 };
 
 Application* lo28main()
 {
 	Template* f = new Template();
-	f->setSize(720, 480);
-	f->setTitle("Template Application");
-	f->setResizable(false);
-
-	f->show();
 
 	return f;
 }
