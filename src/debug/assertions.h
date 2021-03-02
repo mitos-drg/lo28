@@ -7,7 +7,7 @@
 
 #ifdef DEBUG
 
-#define ASSERT(x) if (!(x)) { LogError("lo28","%s: an assertion failed at line: %d", __FUNCTION__, __LINE__); exit(1); }
+#define ASSERT(x, errorMsg) if (!(x)) { LogError("lo28", errorMsg); LogError("lo28","%s: an assertion failed at line: %d", __FUNCTION__, __LINE__); exit(1); }
 
 #define CHECK(condition, description) logTime(); printf(description ": "); if ((condition)) printf("\033[1;32mOK\n\033[0m"); else printf("\033[1;31mERROR\n\033[0m");
 
@@ -15,7 +15,7 @@
 
 #else
 
-#define ASSERT(x)
+#define ASSERT(x) x;
 #define CHECK(condition, description)
 #define FATAL_CHECK(condition, errorMsg, successMsg) condition
 

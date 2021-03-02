@@ -43,7 +43,7 @@ set(LO28_SRC
 
     src/graphics/Shaders.h
     src/graphics/Shaders.h
- )
+  "src/core/Application.cpp" "src/graphics/Renderer.cpp")
 
 # list of include files for lo28 library
 set(LO28_H
