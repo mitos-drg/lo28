@@ -43,13 +43,18 @@ set(LO28_SRC
 
     src/graphics/Shaders.h
     src/graphics/Shaders.h
-  "src/core/Application.cpp" "src/graphics/Renderer.cpp")
+    src/core/Application.cpp
+    src/graphics/Renderer.cpp
+    src/graphics/Graphics.cpp
+  )
 
 # list of include files for lo28 library
 set(LO28_H
     include/lo28/lo28.h
 
     include/lo28/DataTypes.h
+    include/lo28/Application.h
+    include/lo28/Graphics.h
 )
 
 # add the lo28 library target

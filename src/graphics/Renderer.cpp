@@ -60,6 +60,37 @@ void Renderer::Cleanup()
 	GLCALL(glDeleteVertexArrays(1, &GeometryVAO));
 }
 
+void Renderer::ClearScreen(Color clearColor, float alpha)
+{
+	GLCALL(glClearColor(clearColor.r, clearColor.g, clearColor.b, alpha));
+	GLCALL(glClear(GL_COLOR_BUFFER_BIT));
+}
+
+void Renderer::DrawScene()
+{
+	GLCALL(glBindVertexArray(GeometryVAO));
+	GLCALL(glUseProgram(GeometryShader));
+
+	GLCALL(glDrawArrays(GL_POINTS, 0, scenePointsCount));
+	GLCALL(glDrawArrays(GL_LINES, scenePointsCount, sceneLinesCount * 2));
+
+	GLCALL(glBindVertexArray(0)); // here should go text rendering
+}
+
+void Renderer::UploadPoints(const std::vector<GeometryVertex>& buffer, uint32_t count)
+{
+	GLCALL(glBindBuffer(GL_ARRAY_BUFFER, GeometryVAO));
+	GLCALL(glBufferSubData(GL_ARRAY_BUFFER, 0, count * sizeof(GeometryVertex), &buffer[0]));
+	scenePointsCount = count;
+}
+
+void Renderer::UploadLines(const std::vector<GeometryVertex>& buffer, uint32_t count)
+{
+	GLCALL(glBindBuffer(GL_ARRAY_BUFFER, GeometryVAO));
+	GLCALL(glBufferSubData(GL_ARRAY_BUFFER, scenePointsCount * sizeof(GeometryVertex), count * 2 * sizeof(GeometryVertex), &buffer[0]));
+	sceneLinesCount = count;
+}
+
 void Renderer::CompileShaders()
 {
 	int compileStatus;

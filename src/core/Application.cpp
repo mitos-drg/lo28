@@ -8,6 +8,7 @@
 #include <debug/assertions.h>
 
 #include <graphics/Renderer.h>
+#include <lo28/Graphics.h>
 
 // ===== APPLICATION STATIC PRIVATE VARIABLES =====
 GLFWwindow* appWindow;
@@ -56,9 +57,14 @@ void Application::show()
 	// initialize renderer
 	Renderer::Init();
 
-	paint(/*graphics*/);
+	{
+		Renderer::ClearScreen(background);
+		Graphics graphics(background, foreground);
+		paint(graphics);
+	}
 
 	// draw to screen current renderBuffer
+	Renderer::DrawScene();
 
 	// swap window buffers
 	glfwSwapBuffers(appWindow);
@@ -76,6 +82,7 @@ void Application::run()
 		// call app->update()
 
 		// draw to screen current renderBuffer
+		Renderer::DrawScene();
 
 		// swap window buffers
 		glfwSwapBuffers(appWindow);
@@ -85,8 +92,13 @@ void Application::run()
 void Application::repaint()
 {
 	// clear screen buffer
+	Renderer::ClearScreen(background);
 
-	paint(/*graphics*/);
+	{
+		Graphics graphics(background, foreground);
+		paint(graphics);
+	}
 
 	// render draw buffer
+	Renderer::DrawScene();
 }

@@ -7,6 +7,7 @@
 #include <string>
 
 #include <lo28/DataTypes.h>
+#include <lo28/Graphics.h>
 
 
 class Application
