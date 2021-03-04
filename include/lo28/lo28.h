@@ -5,6 +5,9 @@
 #ifndef LO28_H
 #define LO28_H
 
+#include "DataTypes.h"
 
+#include "Application.h"
+#include "Graphics.h"
 
 #endif

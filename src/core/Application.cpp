@@ -17,8 +17,8 @@ GLFWwindow* appWindow;
 Application::Application()
 {
 	// fill defaults
-	width = 600;
-	height = 600;
+	width = 100;
+	height = 100;
 	title = "lo28 application";
 	resizable = false;
 	decorated = true;
@@ -26,6 +26,8 @@ Application::Application()
 
 	background = { 0.0f, 0.0f, 0.0f };
 	foreground = { 1.0f, 1.0f, 1.0f };
+
+	Renderer::POINT_SIZE = 2.0f;
 }
 
 Application::~Application()
@@ -55,13 +57,13 @@ void Application::show()
 	// setup events
 
 	// initialize renderer
-	Renderer::Init();
+	Renderer::Init(width, height);
+	Renderer::ClearScreen(background);
 
-	{
-		Renderer::ClearScreen(background);
-		Graphics graphics(background, foreground);
-		paint(graphics);
-	}
+	// Call user method to fill draw buffer
+	Graphics* graphics = new Graphics(background, foreground);
+	paint(*graphics);
+	delete graphics;
 
 	// draw to screen current renderBuffer
 	Renderer::DrawScene();
@@ -72,14 +74,17 @@ void Application::show()
 
 void Application::run()
 {
-	// any additional set ups
-	while (/*running*/)
+	// application main loop
+	while (!glfwWindowShouldClose(appWindow))
 	{
 		// poll events
 		glfwPollEvents();
 
 		// call handle events
 		// call app->update()
+
+		// clear screen before drawing -> to be considered
+		Renderer::ClearScreen(background);
 
 		// draw to screen current renderBuffer
 		Renderer::DrawScene();
@@ -102,3 +107,5 @@ void Application::repaint()
 	// render draw buffer
 	Renderer::DrawScene();
 }
+
+void Application::paint(Graphics& g) {}

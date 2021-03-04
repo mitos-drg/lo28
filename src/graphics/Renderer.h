@@ -3,13 +3,14 @@
 #include <cstdint>
 #include <vector>
 
-#include "GraphicsTypes.h"
+#include <lo28/GraphicsTypes.h>
 
 
 class Renderer
 {
 public:
-	static void Init();
+	static void Init(uint32_t width, uint32_t height);
+	static void CalculateViewMatrix(uint32_t width, uint32_t height);
 	static void Cleanup();
 
 	static void ClearScreen(Color clearColor, float alpha = 1.0f);
@@ -19,10 +20,11 @@ public:
 	static void UploadPoints(const std::vector<GeometryVertex>& buffer, uint32_t count);
 	static void UploadLines(const std::vector<GeometryVertex>& buffer, uint32_t count);
 
-	static constexpr uint32_t MAX_VERTICES = 100000;
-	static constexpr uint32_t MAX_CHARACTERS = 2048;
+	static uint32_t MAX_VERTICES;
+	static uint32_t MAX_CHARACTERS;
 
-	static constexpr float POINT_SIZE = 1.0f;
+	static float POINT_SIZE;
+	static float UNIT_SIZE;
 
 private:
 	static void CompileShaders();

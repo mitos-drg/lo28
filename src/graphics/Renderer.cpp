@@ -9,10 +9,16 @@
 #include <debug/glUtils.h>
 #include <debug/assertions.h>
 
-#include "GraphicsTypes.h"
+#include <lo28/GraphicsTypes.h>
 #include "Shaders.h"
 
 // ===== RENDERER PRIVATE STATIC VARIARABLES =====
+uint32_t Renderer::MAX_VERTICES = 100000;
+uint32_t Renderer::MAX_CHARACTERS = 2048;
+
+float Renderer::POINT_SIZE = 1.0f;
+float Renderer::UNIT_SIZE = 20.0f;
+
 uint32_t GeometryVAO;
 uint32_t GeometryVBO;
 uint32_t TextVAO;
@@ -26,13 +32,18 @@ uint32_t scenePointsCount;
 uint32_t sceneLinesCount;
 uint32_t sceneCharactersCount;
 
+// View matrix and related
+int32_t viewMatrixUniform;
+float viewMatrix[16];
 
-void Renderer::Init()
+
+void Renderer::Init(uint32_t width, uint32_t height)
 {
 	ASSERT(gladLoadGLLoader((GLADloadproc)glfwGetProcAddress), "Failed to initialize GLAD!");
 
 	// Create vertex array and buffer
 	GLCALL(glGenVertexArrays(1, &GeometryVAO));
+	GLCALL(glBindVertexArray(GeometryVAO));
 	GLCALL(glGenBuffers(1, &GeometryVBO));
 
 	GLCALL(glBindBuffer(GL_ARRAY_BUFFER, GeometryVBO));
@@ -50,6 +61,38 @@ void Renderer::Init()
 	GLCALL(glPointSize(POINT_SIZE));
 
 	CompileShaders();
+	CalculateViewMatrix(width, height);
+
+	glSuccess("Renderer initialized!");
+}
+
+void Renderer::CalculateViewMatrix(uint32_t width, uint32_t height)
+{
+	float top = height / 2.0f / UNIT_SIZE;
+	float bottom = -top;
+
+	float right = width / 2.0f / UNIT_SIZE;
+	float left = -right;
+
+	viewMatrix[0 * 4 + 0] = 2 / (right - left);
+	viewMatrix[0 * 4 + 1] = 0;
+	viewMatrix[0 * 4 + 2] = 0;
+	viewMatrix[0 * 4 + 3] = -(right + left) / (right - left);
+
+	viewMatrix[1 * 4 + 0] = 0;
+	viewMatrix[1 * 4 + 1] = 2 / (top - bottom);
+	viewMatrix[1 * 4 + 2] = 0;
+	viewMatrix[1 * 4 + 3] = -(top + bottom) / (top - bottom);
+
+	viewMatrix[2 * 4 + 0] = 0;
+	viewMatrix[2 * 4 + 1] = 0;
+	viewMatrix[2 * 4 + 2] = 1;
+	viewMatrix[2 * 4 + 3] = 0;
+	
+	viewMatrix[3 * 4 + 0] = 0;
+	viewMatrix[3 * 4 + 1] = 0;
+	viewMatrix[3 * 4 + 2] = 0;
+	viewMatrix[3 * 4 + 3] = 1;
 }
 
 void Renderer::Cleanup()
@@ -58,6 +101,8 @@ void Renderer::Cleanup()
 
 	GLCALL(glDeleteBuffers(1, &GeometryVBO));
 	GLCALL(glDeleteVertexArrays(1, &GeometryVAO));
+
+	glInfo("Renderer destroyed");
 }
 
 void Renderer::ClearScreen(Color clearColor, float alpha)
@@ -70,6 +115,8 @@ void Renderer::DrawScene()
 {
 	GLCALL(glBindVertexArray(GeometryVAO));
 	GLCALL(glUseProgram(GeometryShader));
+
+	GLCALL(glUniformMatrix4fv(viewMatrixUniform, 1, GL_FALSE, viewMatrix));
 
 	GLCALL(glDrawArrays(GL_POINTS, 0, scenePointsCount));
 	GLCALL(glDrawArrays(GL_LINES, scenePointsCount, sceneLinesCount * 2));
@@ -141,4 +188,8 @@ void Renderer::CompileShaders()
 	GLCALL(glDeleteShader(geoFs));
 
 	GLCALL(glUseProgram(GeometryShader));
+
+	GLCALL(viewMatrixUniform = glGetUniformLocation(GeometryShader, "u_MVP"));
+
+	ASSERT(viewMatrixUniform != -1, "ViewMatrix uniform not found!");
 }
