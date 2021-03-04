@@ -15,8 +15,11 @@ Application* GetApplication()
 }
 
 // ===== LO28 ENTRY POINT =====
-#if defined(WIN32) && !defined(DEBUG)
-int WinMain(int argc, const char** argv)
+#if defined(WIN32) && !defined(DEBUG) && 0
+
+#include <Windows.h>
+
+int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 #else
 int main(int argc, const char** argv)
 #endif
