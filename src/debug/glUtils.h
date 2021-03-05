@@ -10,10 +10,10 @@
 
 #define GLCALL(x) glClearErrors(); x; ASSERT(glLogErrors(#x, __FILE__, __LINE__));
 
-#define glInfo(message, ...) LogInfo("OpenGL", message, __VA_ARGS__)
-#define glSuccess(message, ...) LogSuccess("OpenGL", message, __VA_ARGS__)
-#define glWarn(message, ...) LogWarn("OpenGL", message, __VA_ARGS__)
-#define glError(message, ...) LogError("OpenGL", message, __VA_ARGS__)
+#define glInfo(message, ...) LogInfo("OpenGL", message, ##__VA_ARGS__)
+#define glSuccess(message, ...) LogSuccess("OpenGL", message, ##__VA_ARGS__)
+#define glWarn(message, ...) LogWarn("OpenGL", message, ##__VA_ARGS__)
+#define glError(message, ...) LogError("OpenGL", message, ##__VA_ARGS__)
 
 // OpenGL debug functions
 

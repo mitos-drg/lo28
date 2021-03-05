@@ -1,7 +1,6 @@
 #include <lo28/Application.h>
 
 // ===== APPLICATION INCLUDES =====
-#define GLFW_INCLUDE_NONE
 #include <GLFW/glfw3.h>
 
 #include <debug/logUtils.h>
@@ -16,6 +15,8 @@ GLFWwindow* appWindow;
 
 Application::Application()
 {
+	//initLog();
+
 	// fill defaults
 	width = 100;
 	height = 100;

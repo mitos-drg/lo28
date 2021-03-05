@@ -11,6 +11,9 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 # Force every project to use /MT<d> flag on MSVC compiler
 set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 
+# Set additional linker flags
+set(CMAKE_EXE_LINKER_FLAGS  "${CMAKE_EXE_LINKER_FLAGS} -fpermissive")
+
 if (MSVC)
 
 # Reduce the config types to only Debug and Release
@@ -32,7 +35,7 @@ endif()
 
 # list of source files of library
 set(LO28_SRC 
-    src/main.cpp
+    # src/main.cpp
 
     src/debug/log.h
     src/debug/log.cpp

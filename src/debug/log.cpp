@@ -16,6 +16,11 @@ void initLog()
 {
 #ifdef WIN32
 
+#ifndef ENABLE_VIRTUAL_TERMINAL_PROCESSING
+#define ENABLE_VIRTUAL_TERMINAL_PROCESSING 0x0004
+#endif // !ENABLE_VIRTUAL_TERMINAL_PROCESSING
+
+
     HANDLE stdo = GetStdHandle(STD_OUTPUT_HANDLE);
     DWORD dwMode = 0;
     GetConsoleMode(stdo, &dwMode);

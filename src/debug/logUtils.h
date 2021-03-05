@@ -4,10 +4,10 @@
 
 #ifdef DEBUG
 
-#define info(message, ...) LogInfo("lo28", message, __VA_ARGS__)
-#define success(message, ...) LogSuccess("lo28", message, __VA_ARGS__)
-#define warn(message, ...) LogWarn("lo28", message, __VA_ARGS__)
-#define error(message, ...) LogError("lo28", message, __VA_ARGS__)
+#define info(message, ...) LogInfo("lo28", message, ##__VA_ARGS__)
+#define success(message, ...) LogSuccess("lo28", message, ##__VA_ARGS__)
+#define warn(message, ...) LogWarn("lo28", message, ##__VA_ARGS__)
+#define error(message, ...) LogError("lo28", message, ##__VA_ARGS__)
 
 #else
 

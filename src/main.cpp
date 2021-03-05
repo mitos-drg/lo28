@@ -15,13 +15,17 @@ Application* GetApplication()
 }
 
 // ===== LO28 ENTRY POINT =====
-#if defined(WIN32) && !defined(DEBUG) && 0
+#if defined(WIN32) && !defined(DEBUG)
+
+#pragma comment(linker, "/SUBSYSTEM:windows") //  /ENTRY:mainCRTStartup
 
 #include <Windows.h>
-
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
+
 #else
+
 int main(int argc, const char** argv)
+
 #endif
 {
 	initLog();

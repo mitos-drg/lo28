@@ -6,10 +6,15 @@
 - [x] make project git-repo
 - [x] modify project CMakeLists.txt to include conditional features for msvc and compiling examples
 - [x] write library logging system
-- [ ] create reference example
-- [ ] write library base
-- [ ] add library additional features (render points, lines)
-- [ ] add cursor and "line-strips"
+- [x] create reference example
+- [x] write library base
+- [x] add library additional features (render points, lines)
+- [x] add cursor and "line-strips"
 - [ ] add text rendering
+- [ ] get rid of console on release build on windows
 - [ ] add "animation thread"
 - [ ] add interface items and events
+
+- [ ] add license
+- [ ] add readme
+- [ ] add documentation
