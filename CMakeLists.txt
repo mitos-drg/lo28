@@ -75,8 +75,11 @@ add_subdirectory(deps/glfw)
 # add glad library
 add_subdirectory(deps/glad)
 
+# add freetype library
+add_subdirectory(deps/freetype)
+
 # link all required libraries
-target_link_libraries(lo28 glfw glad)
+target_link_libraries(lo28 glfw glad freetype)
 
 # add library include directories
 target_include_directories(lo28 PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
@@ -103,6 +106,9 @@ source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${LO28_SRC} ${LO28_H})
 
 # add glad target to dependencies folder
 set_target_properties(glad PROPERTIES FOLDER dependencies)
+
+# add freetype target to dependencies folder
+set_target_properties(freetype PROPERTIES FOLDER dependencies)
 
 # add glfw target to dependencies folder
 set_target_properties(glfw PROPERTIES FOLDER dependencies)
