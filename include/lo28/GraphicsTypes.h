@@ -15,3 +15,9 @@ struct TextVertex
 	pkt2d UV;
 	Color color;
 };
+
+struct RenderCharacter
+{
+	pkt2d uv[4];
+	float advance;
+};

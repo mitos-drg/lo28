@@ -11,7 +11,7 @@
 - [x] add library additional features (render points, lines)
 - [x] add cursor and "line-strips"
 - [ ] add text rendering
-- [ ] get rid of console on release build on windows
+- [x] get rid of console on release build on windows // kind of, done
 - [ ] add "animation thread"
 - [ ] add interface items and events
 

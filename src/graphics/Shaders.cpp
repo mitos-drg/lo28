@@ -31,12 +31,36 @@ void main()
 
 
 
-const char* textVertexShaderSrc =
-	R"vs(
+const char* textVertexShaderSrc =R"vsSrc(
+#version 330 core
 
-	)vs";
+layout(location = 0) in vec4 vPosition;
+layout(location = 1) in vec3 vColor;
 
-const char* textFragmentShaderSrc =
-	R"fs(
+out vec3 fragCol;
+out vec2 UV;
 
-	)fs";
+uniform mat4 u_MVP;
+
+void main()
+{
+	fragCol = vColor;
+	UV = vPosition.zw;
+	gl_Position = u_MVP * vec4(vPosition.xy, 0.0, 1.0);
+}
+	)vsSrc";
+
+const char* textFragmentShaderSrc =R"fsSrc(
+# version 330 core
+
+out vec4 oColor;
+in vec3 fragCol;
+in vec2 UV;
+
+uniform sampler2D fontTexture;
+
+void main()
+{
+	oColor = vec4(fragCol, texture(fontTexture, UV).r);
+}
+	)fsSrc";

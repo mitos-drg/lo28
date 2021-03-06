@@ -19,6 +19,7 @@ public:
 	// IMPORTANT: remember to upload points before the lines, as both goes into the same drawBuffer
 	static void UploadPoints(const std::vector<GeometryVertex>& buffer, uint32_t count);
 	static void UploadLines(const std::vector<GeometryVertex>& buffer, uint32_t count);
+	static void UploadText(const std::vector<TextVertex>& buffer, uint32_t count);
 
 	static uint32_t MAX_VERTICES;
 	static uint32_t MAX_CHARACTERS;
@@ -28,4 +29,5 @@ public:
 
 private:
 	static void CompileShaders();
+	static void LoadFont();
 };

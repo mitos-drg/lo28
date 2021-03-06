@@ -15,7 +15,7 @@ GLFWwindow* appWindow;
 
 Application::Application()
 {
-	//initLog();
+	initLog();
 
 	// fill defaults
 	width = 100;
@@ -100,10 +100,9 @@ void Application::repaint()
 	// clear screen buffer
 	Renderer::ClearScreen(background);
 
-	{
-		Graphics graphics(background, foreground);
-		paint(graphics);
-	}
+	Graphics* graphics = new Graphics(background, foreground);
+	paint(*graphics);
+	delete graphics;
 
 	// render draw buffer
 	Renderer::DrawScene();

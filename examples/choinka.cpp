@@ -40,9 +40,9 @@ public:
 			pkt2d nr = { root.x, root.y + height };
 			g.segment(root, nr);
 
-			pkt2d branch = pkt2d(root.x + height * 0.6, root.y + height * 0.2);
+			pkt2d branch = pkt2d(root.x + height * 0.6f, root.y + height * 0.2f);
 			g.segment(nr, branch);
-			g.segment(nr, { -branch.x, branch.y });
+			g.segment(nr, { root.x - height * 0.6f, branch.y });
 
 			choinka(g, nr, height * s, deep - 1);
 		}
