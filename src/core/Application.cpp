@@ -52,6 +52,7 @@ void Application::show()
 	appWindow = glfwCreateWindow(width, height, title.c_str(), 0, 0);
 	ASSERT(appWindow, "Failed to open the window!");
 
+	glfwSetWindowPos(appWindow, 150, 40); // change it to be dynamic
 	glfwMakeContextCurrent(appWindow);
 	glfwSwapInterval(1);
 

@@ -20,6 +20,7 @@ uint32_t Renderer::MAX_VERTICES = 100000;
 uint32_t Renderer::MAX_CHARACTERS = 2048;
 
 float Renderer::POINT_SIZE = 1.0f;
+uint32_t Renderer::POINT_SIZE = 24;
 float Renderer::UNIT_SIZE = 20.0f;
 
 uint32_t GeometryVAO;
@@ -285,5 +286,5 @@ void Renderer::CompileShaders()
 
 void Renderer::LoadFont()
 {
-
+	glInfo("Loading fonts...");
 }
