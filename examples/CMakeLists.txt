@@ -15,6 +15,11 @@ add_executable(template template.cpp)
 set_target_properties(template PROPERTIES FOLDER examples)
 target_link_libraries(template PUBLIC lo28)
 
+# Create template target example
+add_executable(demo demo.cpp)
+set_target_properties(demo PROPERTIES FOLDER examples)
+target_link_libraries(demo PUBLIC lo28)
+
 # Create choinka target example
 add_executable(choinka choinka.cpp)
 set_target_properties(choinka PROPERTIES FOLDER examples)

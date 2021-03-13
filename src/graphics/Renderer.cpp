@@ -23,8 +23,6 @@ uint32_t Renderer::MAX_CHARACTERS = 2048;
 float Renderer::POINT_SIZE = 1.0f;
 float Renderer::UNIT_SIZE = 20.0f;
 
-uint32_t Renderer::FONT_SIZE = 24;
-
 uint32_t GeometryVAO;
 uint32_t GeometryVBO;
 uint32_t TextVAO;

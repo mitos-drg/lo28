@@ -29,8 +29,9 @@ Application::Application()
 	background = { 0.0f, 0.0f, 0.0f };
 	foreground = { 1.0f, 1.0f, 1.0f };
 
-	Renderer::POINT_SIZE = 2.0f;
-	Fonts::SetFontSize(50);
+	point_size = 2.0f;
+	font_size = 16; // do not make it bigger than 80!
+	font_file = "consola.ttf";
 }
 
 Application::~Application()
@@ -60,6 +61,12 @@ void Application::show()
 	glfwSwapInterval(1);
 
 	// setup events
+
+	// Renderer and fonts pre-initialization setup
+	Renderer::POINT_SIZE = point_size;
+	Fonts::FONT_SIZE = font_size;
+
+	Fonts::FONT_FILE = font_file.c_str();
 
 	// initialize renderer
 	Renderer::Init(width, height);

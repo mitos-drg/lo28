@@ -23,20 +23,7 @@ public:
 	*/
 	Template()
 	{
-		// set background for your app
-		background = { 0.1f, 0.1f, 0.1f };
-		// set default drawing color
-		foreground = { 0.9f, 0.85f, 0.2f };
-
-		// set size of your app's window
-		width = 600;
-		height = 600;
-
-		// set application title
-		title = "LO28 Template Application";
-
-		// set application's window to not be resizable (resizable windows aren't currently supported)
-		resizable = false;
+		
 	}
 
 	/*
@@ -44,39 +31,7 @@ public:
 	*/
 	void paint(Graphics& g) override
 	{
-		pkt2d p = pkt2d(7, -2);
-		int n = 12;
-
-		// set graphics cursor to point p
-		g.setCursor(p);
-
-		for (int i = 1; i <= 12; ++i)
-		{
-			g.setColor({ 0.9f, 0.85f, 0.2f });
-			p.x = std::cos(2 * M_PI * i / n) * 7;
-			p.y = std::sin(2 * M_PI * i / n) * 7 - 2;
-
-			// draw continouose line segments from cursor
-			g.line(p);
-
-			for (int j = 1; j < 7; ++j)
-			{
-				g.setColor(Color(0.9f, 0.2f, 0.35f));
-				// draw points
-				g.point(pkt2d(std::cos(2 * M_PI * i / n) * j, std::sin(2 * M_PI * i / n) * j - 2));
-			}
-		}
-
-		// Setting custom draw color
-		g.setColor({ 0.1f, 0.3f, 0.9f });
-
-		// draw simple segments
-		g.segment({ 0,10 }, { 10, -10 });
-		g.segment({ 10, -10 }, { -10, -10 });
-		g.segment({ -10,-10 }, { 0, 10 });
-
-		g.setColor({ 0.18f, 0.9f, 0.23f });
-		g.text({ -10, 12 }, "This is Example text.");
+		
 	}
 };
 

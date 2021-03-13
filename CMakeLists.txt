@@ -44,12 +44,16 @@ set(LO28_SRC
     src/debug/glUtils.h
     src/debug/glUtils.cpp
 
+    src/core/Application.cpp
+
     src/graphics/Shaders.h
     src/graphics/Shaders.cpp
-    src/core/Application.cpp
+    src/graphics/Renderer.h
     src/graphics/Renderer.cpp
     src/graphics/Graphics.cpp
-   "src/graphics/Fonts.cpp")
+    src/graphics/Fonts.h
+    src/graphics/Fonts.cpp
+)
 
 # list of include files for lo28 library
 set(LO28_H

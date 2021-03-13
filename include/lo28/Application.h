@@ -35,6 +35,10 @@ protected:
 
 	Color background;
 	Color foreground;
+
+	float point_size;
+	int font_size;
+	std::string font_file;
 };
 
 

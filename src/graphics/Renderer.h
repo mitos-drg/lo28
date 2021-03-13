@@ -27,8 +27,6 @@ public:
 	static float POINT_SIZE;
 	static float UNIT_SIZE;
 
-	static uint32_t FONT_SIZE;
-
 private:
 	static void CompileShaders();
 	//static void LoadFont();
