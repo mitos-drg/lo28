@@ -30,10 +30,6 @@ uint32_t GeometryVBO;
 uint32_t TextVAO;
 uint32_t TextVBO;
 
-// Font and text rendering
-uint32_t FontTexture;
-std::vector<RenderCharacter> Renderer::characters;
-
 uint32_t GeometryShader;
 uint32_t TextShader;
 
@@ -90,7 +86,6 @@ void Renderer::Init(uint32_t width, uint32_t height)
 
 	CompileShaders();
 	CalculateViewMatrix(width, height);
-	LoadFont();
 
 	glSuccess("Renderer initialized!");
 }
@@ -127,9 +122,12 @@ void Renderer::CalculateViewMatrix(uint32_t width, uint32_t height)
 void Renderer::Cleanup()
 {
 	GLCALL(glDeleteProgram(GeometryShader));
+	GLCALL(glDeleteProgram(TextShader));
 
 	GLCALL(glDeleteBuffers(1, &GeometryVBO));
 	GLCALL(glDeleteVertexArrays(1, &GeometryVAO));
+	GLCALL(glDeleteBuffers(1, &TextVBO));
+	GLCALL(glDeleteVertexArrays(1, &TextVAO));
 
 	glInfo("Renderer destroyed");
 }
@@ -290,7 +288,7 @@ void Renderer::CompileShaders()
 	ASSERT(TextViewMatrixUniform != -1, "ViewMatrix uniform in text shader not found!");
 }
 
-void Renderer::LoadFont() // propably move to separate font file
+/*void Renderer::LoadFont() // propably move to separate font file
 {
 	glInfo("Loading fonts...");
 
@@ -353,4 +351,4 @@ void Renderer::LoadFont() // propably move to separate font file
 	FT_Done_FreeType(ftLib);
 
 	glInfo("Fonts loaded!");
-}
+}*/

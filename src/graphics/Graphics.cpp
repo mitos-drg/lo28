@@ -7,6 +7,7 @@
 #include <debug/assertions.h>
 
 #include "Renderer.h"
+#include "Fonts.h"
 #include <lo28/GraphicsTypes.h>
 
 
@@ -74,27 +75,29 @@ void Graphics::text(pkt2d position, const std::string& str)
 	{
 		if (c != ' ')
 		{
-			info("Drawing character: %c - %d", c, c);
-			float posx = position.x + Renderer::characters[c - 33].bearing.x / Renderer::UNIT_SIZE;
-			float posy = position.y + Renderer::characters[c - 33].bearing.y / Renderer::UNIT_SIZE;
+			RenderCharacter& rChar = *Fonts::GetCharacter(c);
+			float scale = Fonts::GetScale();
 
-			float width = Renderer::characters[c - 33].size.x / Renderer::UNIT_SIZE;
-			float height = Renderer::characters[c - 33].size.y / Renderer::UNIT_SIZE;
+			float posx = position.x + rChar.bearing.x * scale / Renderer::UNIT_SIZE;
+			float posy = position.y + rChar.bearing.y * scale / Renderer::UNIT_SIZE;
 
-			characterBuffer[charactersCount * 6] = { { posx, posy }, Renderer::characters[c - 33].uv[0], pen };
-			characterBuffer[charactersCount * 6 + 1] = { { posx, posy - height }, Renderer::characters[c - 33].uv[1], pen };
-			characterBuffer[charactersCount * 6 + 2] = { { posx + width, posy - height }, Renderer::characters[c - 33].uv[2], pen };
+			float width = rChar.size.x * scale / Renderer::UNIT_SIZE;
+			float height = rChar.size.y * scale / Renderer::UNIT_SIZE;
 
-			characterBuffer[charactersCount * 6 + 3] = { { posx + width, posy - height }, Renderer::characters[c - 33].uv[2], pen };
-			characterBuffer[charactersCount * 6 + 4] = { { posx + width, posy }, Renderer::characters[c - 33].uv[3], pen };
-			characterBuffer[charactersCount * 6 + 5] = { { posx, posy }, Renderer::characters[c - 33].uv[0], pen };
+			characterBuffer[charactersCount * 6] = { { posx, posy }, rChar.uv[0], pen };
+			characterBuffer[charactersCount * 6 + 1] = { { posx, posy - height }, rChar.uv[1], pen };
+			characterBuffer[charactersCount * 6 + 2] = { { posx + width, posy - height }, rChar.uv[2], pen };
+
+			characterBuffer[charactersCount * 6 + 3] = { { posx + width, posy - height }, rChar.uv[2], pen };
+			characterBuffer[charactersCount * 6 + 4] = { { posx + width, posy }, rChar.uv[3], pen };
+			characterBuffer[charactersCount * 6 + 5] = { { posx, posy }, rChar.uv[0], pen };
 
 			charactersCount++;
-			position.x += Renderer::characters[c - 33].advance / Renderer::UNIT_SIZE;
+			position.x += rChar.advance * scale / Renderer::UNIT_SIZE;
 		}
 		else
 		{
-			position.x += Renderer::characters['_' - 33].advance / Renderer::UNIT_SIZE;
+			position.x += Fonts::GetCharacter('_')->advance * Fonts::GetScale() / Renderer::UNIT_SIZE;
 		}
 	}
 }

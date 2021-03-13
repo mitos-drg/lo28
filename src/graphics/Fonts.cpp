@@ -14,6 +14,7 @@
 
 #ifdef LO28_EMBED_FONT
 	// For use with embedded font, file "font_generated.h" should contain a uint8_t[512*512] TextureBuffer to load texture from and a vector<RenderCharacter> CharacterSet
+	// additionally it should contain method PrepareTexture() witch initializes TextureBuffer array
 	#include "font_generated.h"
 #else
 
@@ -33,6 +34,8 @@ void Fonts::Init()
 	// Create font texture
 	GLCALL(glPixelStorei(GL_UNPACK_ALIGNMENT, 1));
 
+	PrepareTexture();
+
 	GLCALL(glGenTextures(1, &FontTexture));
 	GLCALL(glBindTexture(GL_TEXTURE_2D, FontTexture));
 	GLCALL(glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, 512, 512, 0, GL_RED, GL_UNSIGNED_BYTE, TextureBuffer));
@@ -41,6 +44,9 @@ void Fonts::Init()
 	GLCALL(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE));
 	GLCALL(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR));
 	GLCALL(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
+
+	// Texture buffer is not needed anymore, destroy it
+	delete TextureBuffer;
 
 	success("Font initialized!");
 
@@ -111,7 +117,23 @@ void Fonts::Init()
 #endif
 }
 
+void Fonts::Cleanup()
+{
+	GLCALL(glDeleteTextures(1, &FontTexture));
+	info("Fonts destroyed!");
+}
+
+void Fonts::SetFontSize(int size)
+{
+	FONT_SIZE = size;
+}
+
 RenderCharacter* Fonts::GetCharacter(char character)
 {
 	return &CharacterSet[character - 33];
+}
+
+float Fonts::GetScale()
+{
+	return FONT_SIZE / 50.0f;
 }

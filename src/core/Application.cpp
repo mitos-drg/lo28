@@ -7,6 +7,7 @@
 #include <debug/assertions.h>
 
 #include <graphics/Renderer.h>
+#include <graphics/Fonts.h>
 #include <lo28/Graphics.h>
 
 // ===== APPLICATION STATIC PRIVATE VARIABLES =====
@@ -29,11 +30,13 @@ Application::Application()
 	foreground = { 1.0f, 1.0f, 1.0f };
 
 	Renderer::POINT_SIZE = 2.0f;
+	Fonts::SetFontSize(50);
 }
 
 Application::~Application()
 {
 	Renderer::Cleanup();
+	Fonts::Cleanup();
 	glfwTerminate();
 }
 
@@ -61,6 +64,9 @@ void Application::show()
 	// initialize renderer
 	Renderer::Init(width, height);
 	Renderer::ClearScreen(background);
+
+	// initialize font
+	Fonts::Init();
 
 	// Call user method to fill draw buffer
 	Graphics* graphics = new Graphics(background, foreground);

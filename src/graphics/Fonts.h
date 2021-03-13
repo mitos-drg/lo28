@@ -10,6 +10,10 @@ class Fonts
 {
 public:
 	static void Init();
+	static void Cleanup();
+
+	static void SetFontSize(int size);
 
 	static RenderCharacter* GetCharacter(char character);
+	static float GetScale();
 };

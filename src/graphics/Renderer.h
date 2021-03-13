@@ -29,9 +29,7 @@ public:
 
 	static uint32_t FONT_SIZE;
 
-	static std::vector<RenderCharacter> characters;
-
 private:
 	static void CompileShaders();
-	static void LoadFont();
+	//static void LoadFont();
 };
