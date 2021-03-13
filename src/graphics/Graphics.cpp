@@ -15,9 +15,11 @@ Graphics::Graphics(Color bg, Color fg)
 {
 	pointBuffer = std::vector<GeometryVertex>(Renderer::MAX_VERTICES);
 	lineBuffer = std::vector<GeometryVertex>(Renderer::MAX_VERTICES);
+	characterBuffer = std::vector<TextVertex>(Renderer::MAX_CHARACTERS * 6);
 
 	pointCount = 0;
 	lineCount = 0;
+	charactersCount = 0;
 
 	info("Graphics created");
 }
@@ -26,6 +28,7 @@ Graphics::~Graphics()
 {
 	Renderer::UploadPoints(pointBuffer, pointCount);
 	Renderer::UploadLines(lineBuffer, lineCount);
+	Renderer::UploadText(characterBuffer, charactersCount);
 
 	info("Graphics destroyed");
 }
@@ -61,4 +64,37 @@ void Graphics::line(pkt2d end)
 	lineCount++;
 
 	cursor = end;
+}
+
+void Graphics::text(pkt2d position, const std::string& str)
+{
+	ASSERT(str.size() <= Renderer::MAX_CHARACTERS, "You have too many characters in scene! Consider widening text buffer.");
+
+	for (char c : str)
+	{
+		if (c != ' ')
+		{
+			info("Drawing character: %c - %d", c, c);
+			float posx = position.x + Renderer::characters[c - 33].bearing.x / Renderer::UNIT_SIZE;
+			float posy = position.y + Renderer::characters[c - 33].bearing.y / Renderer::UNIT_SIZE;
+
+			float width = Renderer::characters[c - 33].size.x / Renderer::UNIT_SIZE;
+			float height = Renderer::characters[c - 33].size.y / Renderer::UNIT_SIZE;
+
+			characterBuffer[charactersCount * 6] = { { posx, posy }, Renderer::characters[c - 33].uv[0], pen };
+			characterBuffer[charactersCount * 6 + 1] = { { posx, posy - height }, Renderer::characters[c - 33].uv[1], pen };
+			characterBuffer[charactersCount * 6 + 2] = { { posx + width, posy - height }, Renderer::characters[c - 33].uv[2], pen };
+
+			characterBuffer[charactersCount * 6 + 3] = { { posx + width, posy - height }, Renderer::characters[c - 33].uv[2], pen };
+			characterBuffer[charactersCount * 6 + 4] = { { posx + width, posy }, Renderer::characters[c - 33].uv[3], pen };
+			characterBuffer[charactersCount * 6 + 5] = { { posx, posy }, Renderer::characters[c - 33].uv[0], pen };
+
+			charactersCount++;
+			position.x += Renderer::characters[c - 33].advance / Renderer::UNIT_SIZE;
+		}
+		else
+		{
+			position.x += Renderer::characters['_' - 33].advance / Renderer::UNIT_SIZE;
+		}
+	}
 }

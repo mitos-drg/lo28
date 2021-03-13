@@ -5,6 +5,7 @@
 
 #include <vector>
 #include <cstdint>
+#include <string>
 
 #include <lo28/DataTypes.h>
 #include <lo28/GraphicsTypes.h>
@@ -26,6 +27,8 @@ public:
 	void setCursor(pkt2d c);
 	void line(pkt2d end);
 
+	void text(pkt2d position, const std::string& str);
+
 private:
 	Color background;
 	Color pen;
@@ -34,7 +37,9 @@ private:
 
 	std::vector<GeometryVertex> pointBuffer;
 	std::vector<GeometryVertex> lineBuffer;
+	std::vector<TextVertex> characterBuffer;
 
 	uint32_t pointCount;
 	uint32_t lineCount;
+	uint32_t charactersCount;
 };

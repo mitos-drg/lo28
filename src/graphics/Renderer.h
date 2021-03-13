@@ -25,8 +25,11 @@ public:
 	static uint32_t MAX_CHARACTERS;
 
 	static float POINT_SIZE;
-	static uint32_t FONT_SIZE;
 	static float UNIT_SIZE;
+
+	static uint32_t FONT_SIZE;
+
+	static std::vector<RenderCharacter> characters;
 
 private:
 	static void CompileShaders();

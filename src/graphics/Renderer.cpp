@@ -2,6 +2,7 @@
 
 #include <cstdint>
 #include <cstddef>
+#include <vector>
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -20,15 +21,18 @@ uint32_t Renderer::MAX_VERTICES = 100000;
 uint32_t Renderer::MAX_CHARACTERS = 2048;
 
 float Renderer::POINT_SIZE = 1.0f;
-uint32_t Renderer::POINT_SIZE = 24;
 float Renderer::UNIT_SIZE = 20.0f;
+
+uint32_t Renderer::FONT_SIZE = 24;
 
 uint32_t GeometryVAO;
 uint32_t GeometryVBO;
 uint32_t TextVAO;
 uint32_t TextVBO;
 
+// Font and text rendering
 uint32_t FontTexture;
+std::vector<RenderCharacter> Renderer::characters;
 
 uint32_t GeometryShader;
 uint32_t TextShader;
@@ -86,6 +90,7 @@ void Renderer::Init(uint32_t width, uint32_t height)
 
 	CompileShaders();
 	CalculateViewMatrix(width, height);
+	LoadFont();
 
 	glSuccess("Renderer initialized!");
 }
@@ -151,10 +156,11 @@ void Renderer::DrawScene()
 	GLCALL(glUseProgram(TextShader));
 
 	GLCALL(glUniformMatrix4fv(TextViewMatrixUniform, 1, GL_FALSE, viewMatrix));
+	GLCALL(glActiveTexture(GL_TEXTURE0));
 
 	GLCALL(glDrawArrays(GL_TRIANGLES, 0, sceneCharactersCount * 6));
 
-	GLCALL(glBindVertexArray(0)); // here should go text rendering
+	GLCALL(glBindVertexArray(0));
 }
 
 void Renderer::UploadPoints(const std::vector<GeometryVertex>& buffer, uint32_t count)
@@ -284,7 +290,67 @@ void Renderer::CompileShaders()
 	ASSERT(TextViewMatrixUniform != -1, "ViewMatrix uniform in text shader not found!");
 }
 
-void Renderer::LoadFont()
+void Renderer::LoadFont() // propably move to separate font file
 {
 	glInfo("Loading fonts...");
+
+	FT_Library ftLib;
+	ASSERT(!FT_Init_FreeType(&ftLib), "Failed to initialize FreeType library!");
+
+	FT_Face fontFace;
+	ASSERT(!FT_New_Face(ftLib, "PrintClearly.otf", 0, &fontFace), "Failed to load font");
+	ASSERT(!FT_Set_Pixel_Sizes(fontFace, 0, 50), "Failed to set font size");
+
+	// Create font texture
+	GLCALL(glPixelStorei(GL_UNPACK_ALIGNMENT, 1));
+
+	GLCALL(glGenTextures(1, &FontTexture));
+	GLCALL(glBindTexture(GL_TEXTURE_2D, FontTexture));
+	GLCALL(glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, 512, 512, 0, GL_RED, GL_UNSIGNED_BYTE, nullptr));
+
+	GLCALL(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE));
+	GLCALL(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE));
+	GLCALL(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR));
+	GLCALL(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
+
+	// Create characters array
+	characters.reserve(94);
+
+	// Load glyphs and upload them to font texture
+	int x = 0;
+	int y = 0;
+	for (char c = 33; c < 127; ++c)
+	{
+		int id = FT_Get_Char_Index(fontFace, c);
+		ASSERT(!FT_Load_Glyph(fontFace, id, FT_LOAD_RENDER), "Failed to load character");
+
+		if (x + fontFace->glyph->bitmap.width > 510)
+		{
+			x = 0;
+			y += 51;
+		}
+
+		GLCALL(glTexSubImage2D(GL_TEXTURE_2D, 0, x, y, fontFace->glyph->bitmap.width, fontFace->glyph->bitmap.rows, GL_RED, GL_UNSIGNED_BYTE, fontFace->glyph->bitmap.buffer));
+
+		float left = x / 512.0f;
+		float right = (x + fontFace->glyph->bitmap.width) / 512.0f;
+		float top = y / 512.0f;
+		float bottom = (y + fontFace->glyph->bitmap.rows) / 512.0f;
+
+		RenderCharacter rChar = {
+			{{left, top}, {left, bottom}, {right, bottom}, {right, top}},
+			{(float)fontFace->glyph->bitmap.width, (float)fontFace->glyph->bitmap.rows},
+			{(float)fontFace->glyph->bitmap_left, (float)fontFace->glyph->bitmap_top},
+			fontFace->glyph->advance.x / 64
+		};
+
+		x += fontFace->glyph->bitmap.width + 2;
+
+		characters.push_back(rChar);
+	}
+
+	FT_Done_Face(fontFace);
+	FT_Done_FreeType(ftLib);
+
+	glInfo("Fonts loaded!");
 }

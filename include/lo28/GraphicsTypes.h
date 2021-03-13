@@ -19,5 +19,9 @@ struct TextVertex
 struct RenderCharacter
 {
 	pkt2d uv[4];
+
+	pkt2d size;
+	pkt2d bearing;
+
 	float advance;
 };

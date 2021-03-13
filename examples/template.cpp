@@ -74,6 +74,9 @@ public:
 		g.segment({ 0,10 }, { 10, -10 });
 		g.segment({ 10, -10 }, { -10, -10 });
 		g.segment({ -10,-10 }, { 0, 10 });
+
+		g.setColor({ 0.18f, 0.9f, 0.23f });
+		g.text({ -10, 12 }, "This is Example text.");
 	}
 };
 
