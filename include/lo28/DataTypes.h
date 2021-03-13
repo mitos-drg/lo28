@@ -16,6 +16,25 @@ struct pkt2d
 	}
 
 	pkt2d() { x = 0; y = 0; }
+
+	pkt2d& operator+= (const pkt2d& rhs);
+	pkt2d& operator-= (const pkt2d& rhs);
+
+	pkt2d& operator*= (const int rhs);
+	pkt2d& operator/= (const int rhs);
+
+	pkt2d& operator*= (const float rhs);
+	pkt2d& operator/= (const float rhs);
+
+	pkt2d operator+ (const pkt2d& rhs);
+	pkt2d operator- (const pkt2d& rhs);
+
+	pkt2d operator* (const int rhs);
+	pkt2d operator/ (const int rhs);
+
+	pkt2d operator* (const float rhs);
+	pkt2d operator/ (const float rhs);
+
 };
 
 struct Color

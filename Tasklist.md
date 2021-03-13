@@ -11,7 +11,8 @@
 - [x] add library additional features (render points, lines)
 - [x] add cursor and "line-strips"
 - [x] add text rendering
-- [x] get rid of console on release build on windows // kind of, done
+- [x] get rid of console on release build on windows
+- [x] add operators overloads for pkt2d
 - [ ] add "animation thread"
 - [ ] add interface items and events
 

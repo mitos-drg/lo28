@@ -53,7 +53,7 @@ set(LO28_SRC
     src/graphics/Graphics.cpp
     src/graphics/Fonts.h
     src/graphics/Fonts.cpp
-)
+ "src/core/DataTypes.cpp")
 
 # list of include files for lo28 library
 set(LO28_H
