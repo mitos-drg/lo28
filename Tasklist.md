@@ -18,4 +18,4 @@
 
 - [ ] add license
 - [ ] add readme
-- [ ] add documentation
+- [x] add documentation
