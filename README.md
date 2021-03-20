@@ -23,7 +23,7 @@ In examples folder in repository you can find demo target, which is more or less
 
 ## License ##
 
-The LO28 library is free for personal and educational use. The library is provided 'as is' without any warranty or liabilities from me.
+The LO28 library is under the zLib license, see License.md for further details.
 
 ## Contact ##
 
