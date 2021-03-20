@@ -24,3 +24,8 @@ target_link_libraries(demo PUBLIC lo28)
 add_executable(choinka choinka.cpp)
 set_target_properties(choinka PROPERTIES FOLDER examples)
 target_link_libraries(choinka PUBLIC lo28)
+
+# Create circles target example
+add_executable(circles circles.cpp)
+set_target_properties(circles PROPERTIES FOLDER examples)
+target_link_libraries(circles PUBLIC lo28)

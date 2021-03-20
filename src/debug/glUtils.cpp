@@ -1,3 +1,6 @@
+//
+// Copyright (C) 2021 by Mikolaj Mijakowski (Mitos), for further legal details see LICENSE.md
+//
 #include "glUtils.h"
 
 #include <glad/glad.h>
