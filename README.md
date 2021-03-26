@@ -29,4 +29,4 @@ The LO28 library is under the zLib license, see License.md for further details.
 
 If you have any questions fill free to contact me on [mitos@mitosgames.com](mailto:mitos@mitosgames.com).
 
-For my other works check out [my website](www.mitosgames.com).
+For my other works check out [my website](https://www.mitosgames.com).
