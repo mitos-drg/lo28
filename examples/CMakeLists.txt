@@ -29,3 +29,8 @@ target_link_libraries(choinka PUBLIC lo28)
 add_executable(circles circles.cpp)
 set_target_properties(circles PROPERTIES FOLDER examples)
 target_link_libraries(circles PUBLIC lo28)
+
+# Create Art of MAths target example
+add_executable(mathart mathart.cpp)
+set_target_properties(mathart PROPERTIES FOLDER examples)
+target_link_libraries(mathart PUBLIC lo28)
